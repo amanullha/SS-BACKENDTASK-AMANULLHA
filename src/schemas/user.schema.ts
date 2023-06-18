@@ -20,9 +20,6 @@ export const UserSchema = new dynamoose.Schema(
     password: {
       type: String,
     },
-    salt: {
-      type: String,
-    },
     verificationCode: {
       type: String,
     },
@@ -39,12 +36,7 @@ export const UserSchema = new dynamoose.Schema(
     },
     userType: {
       type: String,
-      enum: [
-        UserType.ADMIN,
-        UserType.CUSTOMER,
-        UserType.GUEST,
-        UserType.SUPPER_ADMIN,
-      ],
+      enum: [UserType.ADMIN, UserType.CUSTOMER, UserType.SUPPER_ADMIN],
       default: UserType.CUSTOMER,
     },
   },

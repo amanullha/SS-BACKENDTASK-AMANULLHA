@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { DynamooseModule, DynamooseModuleOptions } from 'nestjs-dynamoose';
+import { UserModule } from './modules/user/user.module';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -19,6 +20,7 @@ const dynamodbConfig: DynamooseModuleOptions = {
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     DynamooseModule.forRoot(dynamodbConfig),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,7 +4,9 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { DynamooseModule, DynamooseModuleOptions } from 'nestjs-dynamoose';
 import { UserModule } from './modules/user/user.module';
+import { MediaModule } from './modules/media/media.module';
 import * as dotenv from 'dotenv';
+import { CastAndCrewModule } from '@modules/cast-and-crew/cast-and-crew.module';
 dotenv.config();
 
 // const dynamodbConfig: DynamooseModuleOptions = {
@@ -27,6 +29,8 @@ const dynamodbConfig: DynamooseModuleOptions = {
     ConfigModule.forRoot({ isGlobal: true }),
     DynamooseModule.forRoot(dynamodbConfig),
     UserModule,
+    MediaModule,
+    CastAndCrewModule,
   ],
   controllers: [AppController],
   providers: [AppService],

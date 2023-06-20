@@ -1,7 +1,7 @@
 import { StreamingPlatform } from './../models/streamingPlatform.enum';
 import { Status } from '@models/status.enum';
 import * as dynamoose from 'dynamoose';
-import { castCrewSchema } from './castAndCrew.schema';
+import { CrewCastSchema } from './castAndCrew.schema';
 import { Genre } from '@models/genre.enum';
 import { MediaType } from '@models/mediaType.enum';
 
@@ -30,8 +30,8 @@ export const MediaSchema = new dynamoose.Schema(
       enum: [MediaType.MOVIE, MediaType.TV_SHOW],
       default: MediaType.MOVIE,
     },
-    session:{
-      type:Number
+    episode: {
+      type: Number,
     },
     duration: {
       type: Number,

@@ -25,7 +25,7 @@ export interface IMedia {
   productionCompany?: string;
   country?: string;
   streamingPlatform?: StreamingPlatform;
-  session?:number,
+  episode?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }

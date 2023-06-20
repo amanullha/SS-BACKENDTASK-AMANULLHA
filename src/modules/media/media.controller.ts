@@ -8,11 +8,11 @@ export class MediaController {
 
   @Post()
   async createMedia(@Body() createMediaDto: CreateMediaDto) {
-    return await this.mediaService.createMedia(createMediaDto);
+    return await this.mediaService.createShow(createMediaDto);
   }
 
   @Get('/:id')
   async getMediaById(@Param('id') id: string) {
-    return await this.mediaService.getMediaById(id);
+    return await this.mediaService.getShowById(id);
   }
 }

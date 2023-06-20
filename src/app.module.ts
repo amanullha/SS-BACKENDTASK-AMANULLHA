@@ -6,7 +6,7 @@ import { DynamooseModule, DynamooseModuleOptions } from 'nestjs-dynamoose';
 import { UserModule } from './modules/user/user.module';
 import { MediaModule } from './modules/media/media.module';
 import * as dotenv from 'dotenv';
-import { CastAndCrewModule } from '@modules/cast-and-crew/cast-and-crew.module';
+import { CastAndCrewModule } from '@modules/filmmakers/filmmakers.module';
 dotenv.config();
 
 // const dynamodbConfig: DynamooseModuleOptions = {

@@ -1,7 +1,7 @@
 import { ArtistType } from '@models/artistType.enum';
 import { Status } from '@models/status.enum';
 import * as dynamoose from 'dynamoose';
-export const CrewCastSchema = new dynamoose.Schema(
+export const FilmmakersSchema = new dynamoose.Schema(
   {
     id: {
       type: String,

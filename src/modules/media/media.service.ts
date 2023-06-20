@@ -7,18 +7,14 @@ import { Genre } from '@models/genre.enum';
 import { MediaType } from '@models/mediaType.enum';
 import { GlobalHelper } from '@helpers/global.helper';
 import { StreamingPlatform } from '@models/streamingPlatform.enum';
-import {
-  ICastAndCrew as IFilmmakers,
-  ICastAndCrewKey as IFilmmakersKey,
-} from '@interfaces/castAndCrew';
+
 
 @Injectable()
 export class MediaService {
   constructor(
     @InjectModel(process.env.SERVER_TYPE + DB_tables.MEDIA)
     private mediaModel: Model<IMedia, IMediaKey>,
-    @InjectModel(process.env.SERVER_TYPE + DB_tables.FILMMAKERS)
-    private FilmmakersModel: Model<IFilmmakers, IFilmmakersKey>,
+ 
   ) {}
   async getShowById(id: string): Promise<IMedia> {
     const media = await this.mediaModel.get({ id: id });

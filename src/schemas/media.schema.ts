@@ -1,7 +1,6 @@
 import { StreamingPlatform } from './../models/streamingPlatform.enum';
 import { Status } from '@models/status.enum';
 import * as dynamoose from 'dynamoose';
-import { CrewCastSchema } from './castAndCrew.schema';
 import { Genre } from '@models/genre.enum';
 import { MediaType } from '@models/mediaType.enum';
 

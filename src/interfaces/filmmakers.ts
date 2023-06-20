@@ -1,10 +1,10 @@
 import { ArtistType } from "@models/artistType.enum";
 
 
-export interface ICastAndCrewKey {
+export interface IFilmmakersKey {
   id: string;
 }
-export interface ICastAndCrew extends ICastAndCrewKey {
+export interface IFilmmakers extends IFilmmakersKey {
   name: string;
   role: ArtistType;
   createdAt?: Date;

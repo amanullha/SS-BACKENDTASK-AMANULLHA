@@ -1,18 +1,30 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { MediaService } from './media.service';
-import { CreateMediaDto } from './dto/createMediaDot';
+import { CreateShowDto } from './dto/createShowDot';
+import { UpdateShowDto } from './dto/updateShowDto';
 
 @Controller('media')
 export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 
   @Post()
-  async createMedia(@Body() createMediaDto: CreateMediaDto) {
+  async create(@Body() createMediaDto: CreateShowDto) {
     return await this.mediaService.createShow(createMediaDto);
   }
+  @Put('/:showId')
+  async update(
+    @Param('showId') showId: string,
+    @Body() updateShowDto: UpdateShowDto,
+  ) {
+    return await this.mediaService.updateShow(showId, updateShowDto);
+  }
 
+  @Get()
+  async getShows(@Param('id') id: string) {
+    return await this.mediaService.getShows();
+  }
   @Get('/:id')
-  async getMediaById(@Param('id') id: string) {
+  async getShowById(@Param('id') id: string) {
     return await this.mediaService.getShowById(id);
   }
 }

@@ -42,10 +42,22 @@ export const MediaSchema = new dynamoose.Schema(
       type: String,
     },
     filmmakerIds: {
-      type: [String],
+      type: Array,
+      schema: [
+        {
+          type: String,
+        },
+      ],
+      default: [],
     },
     awards: {
-      type: [String],
+      type: Array,
+      schema: [
+        {
+          type: String,
+        },
+      ],
+      default: [],
     },
     imageUrl: {
       type: String,

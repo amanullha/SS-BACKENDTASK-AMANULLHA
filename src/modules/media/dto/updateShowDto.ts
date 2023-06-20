@@ -10,20 +10,11 @@ import {
   ValidateIf,
 } from 'class-validator';
 
-export class CreateMediaDto {
-  @IsNotEmpty({ message: 'title_empty' })
-  title: string;
-  @IsNotEmpty({ message: 'image_empty' })
+export class UpdateShowDto {
+  @IsOptional()
   imageUrl: string;
-  @IsNotEmpty({ message: 'mediaType_empty' })
-  @IsEnum(MediaType, { message: 'Invalid mediaType' })
-  mediaType: MediaType;
-  @ValidateIf((obj) => obj.mediaType === MediaType.TV_SHOW)
-  @IsNotEmpty({ message: 'episode_empty' })
-  @Transform(({ value }) => parseInt(value))
-  @IsPositive({ message: 'episode_must_be_greater_than_1' })
+  @IsOptional()
   episode: number;
-
   @IsOptional()
   description: string;
   @IsOptional()

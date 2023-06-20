@@ -1,6 +1,7 @@
 import { Genre } from '@models/genre.enum';
 import { MediaType } from '@models/mediaType.enum';
 import { StreamingPlatform } from '@models/streamingPlatform.enum';
+import { IFilmmakers } from './filmmakers';
 
 export interface IMediaKey {
   id: string;
@@ -16,6 +17,7 @@ export interface IMedia {
   rating?: string;
   language?: string;
   filmmakerIds?: string[];
+  filmmakers?:IFilmmakers[];
   awards?: string[];
   trailerUrl?: string;
   productionCompany?: string;

@@ -8,13 +8,13 @@ import { ArtistType } from '@models/artistType.enum';
 import { ExceptionHelper } from '@helpers/exception.helper';
 
 @Injectable()
-export class CastAndCrewService {
+export class FilmmakersService {
   constructor(
     @InjectModel(process.env.SERVER_TYPE + DB_tables.FILMMAKERS)
     private filmmakersModel: Model<IFilmmakers, IFilmmakersKey>,
   ) {}
 
-  async create(filmmakersDto: FilmmakersDto) {
+  async create(filmmakersDto: FilmmakersDto): Promise<IFilmmakers> {
     const filmmakerObj = {
       id: GlobalHelper.getInstance().getUniqueId(),
       name: filmmakersDto.name ?? '',
@@ -23,7 +23,7 @@ export class CastAndCrewService {
     const filmmaker = await this.filmmakersModel.create(filmmakerObj);
     return filmmaker;
   }
-  async getOne(filmmakerId: string) {
+  async getOne(filmmakerId: string): Promise<IFilmmakers> {
     if (GlobalHelper.getInstance().isEmpty(filmmakerId)) {
       ExceptionHelper.getInstance().defaultError(
         'invalid id',

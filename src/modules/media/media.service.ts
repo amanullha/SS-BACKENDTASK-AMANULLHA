@@ -8,13 +8,11 @@ import { MediaType } from '@models/mediaType.enum';
 import { GlobalHelper } from '@helpers/global.helper';
 import { StreamingPlatform } from '@models/streamingPlatform.enum';
 
-
 @Injectable()
 export class MediaService {
   constructor(
     @InjectModel(process.env.SERVER_TYPE + DB_tables.MEDIA)
     private mediaModel: Model<IMedia, IMediaKey>,
- 
   ) {}
   async getShowById(id: string): Promise<IMedia> {
     const media = await this.mediaModel.get({ id: id });
@@ -41,11 +39,7 @@ export class MediaService {
         : 1,
       duration: createShowDto.duration ?? 120,
       language: createShowDto.language ?? 'English',
-      actorIds: createShowDto?.actorIds,
-      directorIds: createShowDto?.directorIds,
-      producerIds: createShowDto?.producerIds,
-      writerIds: createShowDto?.writerIds,
-      crewIds: createShowDto?.crewIds,
+      filmmakerIds: createShowDto?.filmmakerIds,
       awards: createShowDto?.awards,
       trailerUrl: createShowDto.trailerUrl ?? '',
       productionCompany: createShowDto.productionCompany ?? '',

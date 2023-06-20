@@ -15,11 +15,7 @@ export interface IMedia {
   duration?: number;
   rating?: string;
   language?: string;
-  actorIds?: string[];
-  directorIds?: string[];
-  producerIds?: string[];
-  writerIds?: string[];
-  crewIds?: string[];
+  filmmakerIds?: string[];
   awards?: string[];
   trailerUrl?: string;
   productionCompany?: string;

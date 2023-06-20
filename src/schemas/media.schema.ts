@@ -41,19 +41,7 @@ export const MediaSchema = new dynamoose.Schema(
     language: {
       type: String,
     },
-    actorIds: {
-      type: [String],
-    },
-    directorIds: {
-      type: [String],
-    },
-    producerIds: {
-      type: [String],
-    },
-    writerIds: {
-      type: [String],
-    },
-    crewIds: {
+    filmmakerIds: {
       type: [String],
     },
     awards: {

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { CastAndCrewController } from './filmmakers.controller';
-import { CastAndCrewService } from './filmmakers.service';
 import { DB_tables } from '@models/dbTable.enum';
 import { FilmmakersSchema } from '@schemas/filmmakers.schema';
 import { DynamooseModule } from 'nestjs-dynamoose';
+import { FilmmakersController } from './filmmakers.controller';
+import { FilmmakersService } from './filmmakers.service';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { DynamooseModule } from 'nestjs-dynamoose';
       },
     ]),
   ],
-  controllers: [CastAndCrewController],
-  providers: [CastAndCrewService],
+  controllers: [FilmmakersController],
+  providers: [FilmmakersService],
 })
-export class CastAndCrewModule {}
+export class FilmmakersModule {}

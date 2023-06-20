@@ -37,15 +37,7 @@ export class CreateMediaDto {
   @IsOptional()
   language: string;
   @IsOptional()
-  actorIds: string[];
-  @IsOptional()
-  directorIds: string[];
-  @IsOptional()
-  producerIds: string[];
-  @IsOptional()
-  writerIds: string[];
-  @IsOptional()
-  crewIds: string[];
+  filmmakerIds: string[];
   @IsOptional()
   awards: string[];
   @IsOptional()

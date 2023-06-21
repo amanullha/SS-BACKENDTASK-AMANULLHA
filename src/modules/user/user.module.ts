@@ -8,7 +8,7 @@ import { DB_tables } from '@models/dbTable.enum';
 import * as dotenv from 'dotenv';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from '@decorators/jwt.strategy';
+import { JwtStrategy } from 'shared/decorators/jwt.strategy';
 dotenv.config();
 @Module({
   imports: [

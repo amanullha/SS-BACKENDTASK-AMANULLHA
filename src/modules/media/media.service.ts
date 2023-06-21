@@ -88,7 +88,7 @@ export class MediaService {
     return updateShow;
   }
 
-  async checkFilmmakers(showDto: UpdateShowDto) {
+  async checkFilmmakers(showDto: UpdateShowDto): Promise<void> {
     if (!GlobalHelper.getInstance().isEmpty(showDto.filmmakerIds)) {
       for (let i = 0; i < showDto?.filmmakerIds?.length; i++) {
         const filmmaker = await this.filmmakersService.getOne(
@@ -117,7 +117,7 @@ export class MediaService {
     return show;
   }
 
-  async constructShowCreateObject(createShowDto: CreateShowDto) {
+  async constructShowCreateObject(createShowDto: CreateShowDto): Promise<{ id: any; title: string; imageUrl: string; description: string; releaseDate: string; genre: Genre; mediaType: MediaType; episode: number; duration: number; language: string; filmmakerIds: string[]; awards: string[]; trailerUrl: string; productionCompany: string; country: string; streamingPlatform: StreamingPlatform; }> {
     return {
       id: GlobalHelper.getInstance().getUniqueId(),
       title: createShowDto.title ?? '',
@@ -140,7 +140,7 @@ export class MediaService {
         createShowDto.streamingPlatform ?? StreamingPlatform.YOUTUBE,
     };
   }
-  async constructShowUpdateObject(updateShowDto: UpdateShowDto, show: IMedia) {
+  async constructShowUpdateObject(updateShowDto: UpdateShowDto, show: IMedia): Promise<{ imageUrl: string; description: string; releaseDate: string; genre: Genre; duration: number; language: string; trailerUrl: string; productionCompany: string; country: string; streamingPlatform: StreamingPlatform; }> {
     const obj = {
       imageUrl: updateShowDto.imageUrl ?? show.imageUrl,
       description: updateShowDto.description ?? show.description,

@@ -96,11 +96,11 @@ export class UserService {
     return { user: userObj, tokens: generatedTokens };
   }
 
-  async getAllUser() {
+  async getAllUser(): Promise<IUser[]> {
     const users: IUser[] = await this.userModel.scan().exec();
     return users;
   }
-  async getOneUser(userId: string) {
+  async getOneUser(userId: string): Promise<IUser> {
     if (!GlobalHelper.getInstance().isEmpty(userId)) {
       const user: IUser = await this.userModel.get({ id: userId });
       return user;
@@ -112,7 +112,7 @@ export class UserService {
       );
     }
   }
-  async findByEmail(email: string) {
+  async findByEmail(email: string):Promise<IUser> {
     if (GlobalHelper.getInstance().isEmpty(email)) {
       ExceptionHelper.getInstance().throwUserNotFoundException();
     }
@@ -122,7 +122,7 @@ export class UserService {
     return GlobalHelper.getInstance().arrayFirstOrNull(users);
   }
 
-  async userLogin(userLoginDto: UserLoginDto) {
+  async userLogin(userLoginDto: UserLoginDto): Promise<{ user: IUser; tokens: JwtTokens; }> {
     const user: IUser = await AuthHelper.getInstance().verify(
       userLoginDto,
       this.userModel,

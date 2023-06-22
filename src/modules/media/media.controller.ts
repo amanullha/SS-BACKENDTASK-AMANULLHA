@@ -20,15 +20,17 @@ export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 
   // @UseGuards(AuthGuard('jwt'))
+
+  @Post()
   @UseGuards(RoleGuard)
   @Roles(UserType.ADMIN, UserType.SUPPER_ADMIN)
-  @Post()
   async create(@Body() createMediaDto: CreateShowDto): Promise<IMedia> {
     return await this.mediaService.createShow(createMediaDto);
   }
+
+  @Put('/:showId')
   @UseGuards(RoleGuard)
   @Roles(UserType.ADMIN, UserType.SUPPER_ADMIN)
-  @Put('/:showId')
   async update(
     @Param('showId') showId: string,
     @Body() updateShowDto: UpdateShowDto,

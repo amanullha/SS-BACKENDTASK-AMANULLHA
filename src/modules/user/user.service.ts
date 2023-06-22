@@ -99,6 +99,7 @@ export class UserService {
   async getOneUser(userId: string): Promise<IUser> {
     if (!GlobalHelper.getInstance().isEmpty(userId)) {
       const user: IUser = await this.userModel.get({ id: userId });
+      delete user.password;
       return user;
     } else {
       ExceptionHelper.getInstance().defaultError(

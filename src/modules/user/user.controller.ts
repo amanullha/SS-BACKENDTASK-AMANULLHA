@@ -1,11 +1,22 @@
 import { UserType } from '@models/userType.enum';
-import { Body, Controller, Post, Get, Param, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  Param,
+  UseGuards,
+  Req,
+  Res,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/createUserDto';
 import { UserLoginDto } from './dto/userLoginDto';
 import { Roles } from 'shared/decorators/roles.decorators';
 import { RoleGuard } from 'shared/guards/roles.guard';
 import { IUser, JwtTokens } from '@interfaces/user.interface';
+import { Request, Response } from 'express';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UserController {
@@ -13,21 +24,33 @@ export class UserController {
 
   @Post('/create-admin')
   async createAdminUser(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
     @Body() createUserDto: CreateUserDto,
-  ): Promise<{ user: IUser; tokens: JwtTokens }> {
-    return await this.userService.createUser(createUserDto, UserType.ADMIN);
+  ): Promise<Partial<IUser>> {
+    return await this.userService.createUser(
+      req,
+      res,
+      createUserDto,
+      UserType.ADMIN,
+    );
   }
   @Post('/create')
   async createUser(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
     @Body() createUserDto: CreateUserDto,
-  ): Promise<{ user: IUser; tokens: JwtTokens }> {
-    return await this.userService.createUser(createUserDto);
+  ): Promise<Partial<IUser>> {
+    return await this.userService.createUser(req, res, createUserDto);
   }
   @Post('/login')
   async userLogin(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
     @Body() userLoginDto: UserLoginDto,
-  ): Promise<{ user: IUser; tokens: JwtTokens }> {
-    return await this.userService.userLogin(userLoginDto);
+  ): Promise<Partial<IUser>> {
+    const user = await this.userService.userLogin(userLoginDto, req, res);
+    return user;
   }
   @UseGuards(RoleGuard)
   @Roles(UserType.ADMIN, UserType.SUPPER_ADMIN)
@@ -35,9 +58,10 @@ export class UserController {
   async getAllUser(): Promise<IUser[]> {
     return await this.userService.getAllUser();
   }
+
+  @Get('/:userId')
   @UseGuards(RoleGuard)
   @Roles(UserType.ADMIN, UserType.SUPPER_ADMIN)
-  @Get('/:userId')
   async getOneUser(@Param('userId') userId: string): Promise<IUser> {
     return await this.userService.getOneUser(userId);
   }

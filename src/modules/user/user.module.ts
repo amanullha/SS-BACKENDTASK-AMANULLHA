@@ -9,6 +9,7 @@ import * as dotenv from 'dotenv';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from 'shared/decorators/jwt.strategy';
+import { FilmmakersSchema } from '@schemas/filmmakers.schema';
 dotenv.config();
 @Module({
   imports: [
@@ -26,6 +27,6 @@ dotenv.config();
   ],
   controllers: [UserController],
   providers: [UserService, JwtStrategy],
-  exports: [JwtStrategy, PassportModule],
+  exports: [JwtStrategy, PassportModule, UserService],
 })
 export class UserModule {}

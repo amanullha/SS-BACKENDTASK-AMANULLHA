@@ -16,6 +16,10 @@ import { JwtModule } from '@nestjs/jwt';
   imports: [
     DynamooseModule.forFeature([
       {
+        name: process.env.SERVER_TYPE + DB_tables.USER,
+        schema: UserSchema,
+      },
+      {
         name: process.env.SERVER_TYPE + DB_tables.MEDIA,
         schema: MediaSchema,
       },
@@ -31,6 +35,6 @@ import { JwtModule } from '@nestjs/jwt';
     }),
   ],
   controllers: [MediaController],
-  providers: [MediaService, FilmmakersService],
+  providers: [MediaService, FilmmakersService,UserService],
 })
 export class MediaModule {}

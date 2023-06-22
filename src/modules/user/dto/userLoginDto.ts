@@ -6,9 +6,9 @@ export enum LoginRequestType {
 }
 
 export class UserLoginDto {
-  @IsNotEmpty({ message: 'Type_empty' })
-  @IsEnum(LoginRequestType)
-  type: LoginRequestType;
+  // @IsNotEmpty({ message: 'Type_empty' })
+  // @IsEnum(LoginRequestType)
+  // type: LoginRequestType;
 
   @ValidateIf((o) => o.type === LoginRequestType.Email)
   @IsNotEmpty({ message: 'Email_empty' })
@@ -18,7 +18,7 @@ export class UserLoginDto {
   @IsNotEmpty({ message: 'Password_empty' })
   password: string;
 
-  @ValidateIf((o) => o.type === LoginRequestType.Refresh)
-  @IsNotEmpty({ message: 'RefreshToken_empty' })
-  refreshToken: string;
+  // @ValidateIf((o) => o.type === LoginRequestType.Refresh)
+  // @IsNotEmpty({ message: 'RefreshToken_empty' })
+  // refreshToken: string;
 }

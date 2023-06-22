@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -11,6 +12,8 @@ async function bootstrap() {
   const configService: ConfigService = app.get<ConfigService>(ConfigService);
   app.useGlobalPipes(new ValidationPipe());
   app.use(helmet());
+    app.use(cookieParser());
+
 
   const port = configService.get('APP_PORT') ?? 3001;
   console.log('app running on port: ', port);

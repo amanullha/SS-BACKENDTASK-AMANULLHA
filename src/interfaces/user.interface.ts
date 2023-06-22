@@ -20,5 +20,5 @@ export interface IUser extends IUserKey {
 
 export class JwtTokens {
   accessToken?: string;
-  refreshToken?: string;
+   refreshToken?: string;
 }

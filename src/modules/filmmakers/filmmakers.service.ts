@@ -6,6 +6,7 @@ import { FilmmakersDto } from './dto/filmmakersDto';
 import { GlobalHelper } from '@helpers/global.helper';
 import { ArtistType } from '@models/artistType.enum';
 import { ExceptionHelper } from '@helpers/exception.helper';
+import { IUser, IUserKey } from '@interfaces/user.interface';
 
 @Injectable()
 export class FilmmakersService {

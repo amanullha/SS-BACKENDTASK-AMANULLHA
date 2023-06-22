@@ -1,11 +1,15 @@
 import { IUser, IUserKey, JwtTokens } from '@interfaces/user.interface';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { TEN_MINS_IN_MILL_SECONDS } from './globalConstants';
+import {
+  ONE_DAY_IN_MILL_SECONDS,
+  TEN_MINS_IN_MILL_SECONDS,
+} from './globalConstants';
 import * as dotenv from 'dotenv';
 import { LoginRequestType, UserLoginDto } from '@modules/user/dto/userLoginDto';
 import { Model } from 'nestjs-dynamoose';
 import { GlobalHelper } from './global.helper';
+import { Request, Response } from 'express';
 dotenv.config();
 
 export class AuthHelper {
@@ -23,14 +27,27 @@ export class AuthHelper {
     const isMatch = await bcrypt.compare(value, hash);
     return isMatch;
   }
-  async generateTokens(user: IUser, jwt: JwtService): Promise<JwtTokens> {
-    return {
-      accessToken: await this.generateAccessToken(user, jwt),
-      refreshToken: await this.generateRefreshToken(user, jwt),
+  async generateTokens(
+    req: Request,
+    res: Response,
+    user: Partial<IUser>,
+    jwt: JwtService,
+  ) {
+    const accessToken = await this.generateAccessToken(user, jwt);
+    // const refreshToken = await this.generateRefreshToken(user, jwt);
+    const cookieOption = {
+      httpOnly: true,
+      secure: false,
+      maxAge: ONE_DAY_IN_MILL_SECONDS,
     };
+    res.cookie('accessToken', accessToken, cookieOption);
+    // res.cookie('refreshToken', refreshToken, cookieOption);
   }
 
-  async generateAccessToken(user: IUser, jwt: JwtService): Promise<string> {
+  async generateAccessToken(
+    user: Partial<IUser>,
+    jwt: JwtService,
+  ): Promise<string> {
     let body = {
       email: user.email,
       id: user.id,
@@ -43,7 +60,7 @@ export class AuthHelper {
     );
     return accessToken;
   }
-  async generateRefreshToken(user: IUser, jwt: JwtService) {
+  async generateRefreshToken(user: Partial<IUser>, jwt: JwtService) {
     let body = {
       email: user.email,
       id: user.id,
@@ -70,34 +87,14 @@ export class AuthHelper {
     userModel: Model<IUser, IUserKey>,
     jwt: JwtService,
   ): Promise<IUser> {
-
     let user: IUser = null;
 
-    if (userLoginDto.type == LoginRequestType.Email) {
-      const users: IUser[] = await userModel
-        .scan('email')
-        .eq(userLoginDto.email)
-        .exec();
-      user = GlobalHelper.getInstance().arrayFirstOrNull(users);
-    } 
-    else if (userLoginDto.type == LoginRequestType.Refresh) {
-      const secretKey = String(process.env.JWT_SECRET);
-      
-      try {
-        const decodedToken = jwt.verify(userLoginDto.refreshToken, {
-          secret: secretKey,
-        });
-        if (!GlobalHelper.getInstance().isEmpty(decodedToken)) {
-          const email = decodedToken['user']['email'] ?? '';
-          const users: IUser[] = await userModel.scan('email').eq(email).exec();
-          user = GlobalHelper.getInstance().arrayFirstOrNull(users);
-        }
-      } catch (error) {
-        user = null;
-      }
-    }
+    const users: IUser[] = await userModel
+      .scan('email')
+      .eq(userLoginDto.email)
+      .exec();
+    user = GlobalHelper.getInstance().arrayFirstOrNull(users);
+
     return user;
-    // const token = jwt.sign(body, { expiresIn: expireTime });
-    // return token;
   }
 }

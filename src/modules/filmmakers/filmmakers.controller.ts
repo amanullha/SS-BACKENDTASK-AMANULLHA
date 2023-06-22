@@ -16,8 +16,8 @@ export class FilmmakersController {
   async create(@Body() filmmakerDto: FilmmakersDto): Promise<IFilmmakers> {
     return await this.filmmakersService.create(filmmakerDto);
   }
-  @UseGuards(RoleGuard)
-  @Roles(UserType.ADMIN, UserType.SUPPER_ADMIN)
+  // @UseGuards(RoleGuard)
+  // @Roles(UserType.ADMIN, UserType.SUPPER_ADMIN)
   @Get('/:filmmakerId')
   async getOne(
     @Param('filmmakerId') filmmakerId: string,

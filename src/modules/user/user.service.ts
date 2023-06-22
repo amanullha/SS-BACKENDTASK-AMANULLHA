@@ -11,6 +11,8 @@ import * as dotenv from 'dotenv';
 import { JwtService } from '@nestjs/jwt';
 import { LoginRequestType, UserLoginDto } from './dto/userLoginDto';
 import { DB_tables } from '@models/dbTable.enum';
+import { Request, Response } from 'express';
+import { ONE_DAY_IN_MILL_SECONDS } from '@helpers/globalConstants';
 dotenv.config();
 @Injectable()
 export class UserService {
@@ -21,9 +23,11 @@ export class UserService {
   ) {}
 
   async createUser(
+    req: Request,
+    res: Response,
     createUserDto: CreateUserDto,
     userType?: UserType,
-  ): Promise<{ user: IUser; tokens: JwtTokens }> {
+  ): Promise<Partial<IUser>> {
     const existUser = await this.getUserByEmail(createUserDto.email);
     if (!GlobalHelper.getInstance().isEmpty(existUser)) {
       ExceptionHelper.getInstance().throwDuplicateException(
@@ -37,7 +41,8 @@ export class UserService {
     );
     let createdUser: IUser = await this.userModel.create(createUserObj);
 
-    const user = this.constructReturnUserObj(createdUser);
+    const user = await this.constructReturnUserObj(createdUser);
+    await AuthHelper.getInstance().generateTokens(req,res,createdUser, this.jwtService);
     return user;
   }
   async getUserByEmail(email: string): Promise<IUser> {
@@ -76,7 +81,7 @@ export class UserService {
 
   async constructReturnUserObj(
     createdUser: IUser,
-  ): Promise<{ user: IUser; tokens: JwtTokens }> {
+  ): Promise< Partial<IUser>> {
     const userObj = {
       id: createdUser?.id,
       name: createdUser?.name,
@@ -84,16 +89,7 @@ export class UserService {
       image: createdUser?.image,
       status: createdUser?.status,
     };
-    const generatedTokens = await AuthHelper.getInstance().generateTokens(
-      createdUser,
-      this.jwtService,
-    );
-    const tokens: JwtTokens = {
-      accessToken: generatedTokens.accessToken,
-      refreshToken: generatedTokens.refreshToken,
-    };
-
-    return { user: userObj, tokens: generatedTokens };
+    return userObj;
   }
 
   async getAllUser(): Promise<IUser[]> {
@@ -112,7 +108,7 @@ export class UserService {
       );
     }
   }
-  async findByEmail(email: string):Promise<IUser> {
+  async findByEmail(email: string): Promise<IUser> {
     if (GlobalHelper.getInstance().isEmpty(email)) {
       ExceptionHelper.getInstance().throwUserNotFoundException();
     }
@@ -122,7 +118,11 @@ export class UserService {
     return GlobalHelper.getInstance().arrayFirstOrNull(users);
   }
 
-  async userLogin(userLoginDto: UserLoginDto): Promise<{ user: IUser; tokens: JwtTokens; }> {
+  async userLogin(
+    userLoginDto: UserLoginDto,
+    req: Request,
+    res: Response,
+  ): Promise<Partial<IUser>> {
     const user: IUser = await AuthHelper.getInstance().verify(
       userLoginDto,
       this.userModel,
@@ -140,13 +140,34 @@ export class UserService {
       userLoginDto.password,
       user?.password,
     );
-    if (userLoginDto.type == LoginRequestType.Email && !isPasswordMatch) {
+    if (!isPasswordMatch) {
       ExceptionHelper.getInstance().defaultError(
         'Invalid password',
         'Invalid_password',
         HttpStatus.BAD_REQUEST,
       );
     }
-    return await this.constructReturnUserObj(user);
+    const loginUser = await this.constructReturnUserObj(user);
+    await AuthHelper.getInstance().generateTokens(
+      req,
+      res,
+      loginUser,
+      this.jwtService,
+    );
+    return loginUser;
+  }
+
+  async setTokenToCookie(
+    tokens: JwtTokens,
+    req: Request,
+    res: Response,
+  ): Promise<void> {
+    const cookieOption = {
+      httpOnly: true,
+      secure: false,
+      maxAge: ONE_DAY_IN_MILL_SECONDS,
+    };
+    res.cookie('accessToken', tokens.accessToken, cookieOption);
+    res.cookie('refreshToken', tokens.refreshToken, cookieOption);
   }
 }

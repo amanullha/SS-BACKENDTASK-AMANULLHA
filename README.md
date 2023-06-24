@@ -33,7 +33,7 @@ Open a web browser and access http://localhost:3000 to test your Nest.js applica
 ## Resources
 ### .env
 ```
-  APP_PORT=3005
+  APP_PORT=3000
 
   AWS_ACCESS_KEY_ID=abcd
   AWS_SECRET_ACCESS_KEY=abcd
@@ -59,7 +59,7 @@ Access project POST MAN file: `https://documenter.getpostman.com/view/22890389/2
     
 
     Create a normal user with necessary information
-    `http://127.0.0.1:3005/user/create`
+    `http://127.0.0.1:3000/user/create`
 
   ```
     
@@ -87,7 +87,7 @@ Access project POST MAN file: `https://documenter.getpostman.com/view/22890389/2
 
     Create a Admin necessary information
     
-    `http://127.0.0.1:3005/user/create-admin`
+    `http://127.0.0.1:3000/user/create-admin`
 
   ```
     
@@ -115,7 +115,7 @@ Access project POST MAN file: `https://documenter.getpostman.com/view/22890389/2
 
    Login with email and password with type is email.
     
-    `localost:3005/user/login`
+    `localost:3000/user/login`
 
   ```
     
@@ -145,7 +145,7 @@ Access project POST MAN file: `https://documenter.getpostman.com/view/22890389/2
 
     This route is role-based, specifically designed for retrieving a user by userId. Only users with the 'Admin' role have the privilege to access and retrieve a user information.
 
-    `localost:3005/user/userId`
+    `localost:3000/user/userId`
 
   ```
     response
@@ -170,7 +170,7 @@ Access project POST MAN file: `https://documenter.getpostman.com/view/22890389/2
 
     This route is role-based, specifically designed for retrieving a user by their userId. Only users with the 'Admin' role have the privilege to access and retrieve user information.
 
-    `localost:3005/user`
+    `localost:3000/user`
 
   ```
     response
@@ -201,7 +201,7 @@ Access project POST MAN file: `https://documenter.getpostman.com/view/22890389/2
 
 
 
-    `localost:3005/filmmakers`
+    `localost:3000/filmmakers`
 
   ```
     
@@ -229,7 +229,7 @@ Access project POST MAN file: `https://documenter.getpostman.com/view/22890389/2
 
 
 
-    `localost:3005/filmmakers/filmmakerId`
+    `localost:3000/filmmakers/filmmakerId`
 
   ```
     
@@ -253,7 +253,7 @@ Access project POST MAN file: `https://documenter.getpostman.com/view/22890389/2
 
 This route is a role-based route, specifically designed for creating Movie/TV Show by users who have the admin role
 
-    `http://127.0.0.1:3005/media`
+    `http://127.0.0.1:3000/media`
 
   ```
     
@@ -297,7 +297,7 @@ This route is a role-based route, specifically designed for update the Movie/TV 
 
 <span style="color:red">Note: </span> If the showType is a TV_Show, update the corresponding episode of the TV_Show, otherwise, no update will be
     
-    `http://127.0.0.1:3005/media`
+    `http://127.0.0.1:3000/media`
 
   ```
     
@@ -340,7 +340,7 @@ This route is a role-based route, specifically designed for update the Movie/TV 
 Access a comprehensive collection of movies and TV shows, featuring a curated list of filmmakers, available for users
 
     
-    `http://127.0.0.1:3005/media/mediaId`
+    `http://127.0.0.1:3000/media/mediaId`
 
   ```
     response
@@ -394,7 +394,7 @@ Access a comprehensive collection of movies and TV shows, featuring a curated li
 Get all the movies or tv show, with filmmaker list, user or gaust can access permission
 
     
-    `http://127.0.0.1:3005/media`
+    `http://127.0.0.1:3000/media`
 
   ```
     response

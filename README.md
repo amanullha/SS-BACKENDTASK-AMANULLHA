@@ -11,9 +11,7 @@
 6. Add given dynamoDB docker-compose code to docker-compose.yml file
 7. Open terminal inside the root directory
 8. Then run this command `npm install --save`
-9. Go to folder where docker-compose.yml file are present
-10. Open terminal, then Run `docker-compose up -d`
-11. After installation is done, run `npm start` or `npm start:dev`
+9.  After installation is done, run `npm start` or `npm start:dev`
 
 ### Set up the environment by Docker Image
 
@@ -22,13 +20,14 @@
 3. Create a `.env` file in the project
 3. Add given `.env` values to the `.env` file to the project
 4. Open terminal inside the root directory
-5. Run this command `docker image build -t ss-bgt-img .` or `sudo docker image build -t ss-bgt-img .`
-6. After executing previous command, run this `docker-compose up -d`
+5. Run this command `docker build -t ss-backend-img .`
+6. After executing previous command, run this `docker run my-nest-app ss-backend-img`
+7. If port is not working , then run `docker run --publish 3000:3000 ss-backend-img`
    
-This command will start the Docker container with the Nest.js application and DynamoDB service running inside. The application will be accessible on port 3333.
+This command will start the Docker container with the Nest.js application and DynamoDB service running inside. The application will be accessible on port 3000.
 
 # Test the application: 
-Open a web browser and access http://localhost:3333 to test your Nest.js application running within the Docker container. Make sure everything is working as expected.
+Open a web browser and access http://localhost:3000 to test your Nest.js application running within the Docker container. Make sure everything is working as expected.
 
 
 ## Resources
@@ -50,78 +49,6 @@ Open a web browser and access http://localhost:3333 to test your Nest.js applica
     JWT_SECRET=c2bffd90e623eb87809ee81c18fe361479ab92c264b23c75620538b2b0f724c2
 
 `
-## Getting Started
-
-You can use Postman, Insomnia, and GraphQL Playground (`http://localhost:3333/graphql`) to use the app.
-
-# SS-BACKENDTASK-AMANULLHA
-
-
-## Set up the environment by using NPM for run locally
-
-1. Clone the GitHub repository from the given github link
-2. Create a `.env` file in the project
-3. Add given `.env` values to the `.env` file to the project
-4. Install Docker in your system
-5. Create a docker-compose.yml file in your pc at any folder
-6. Add given dynamoDB docker-compose code to docker-compose.yml file
-7. Open terminal inside the root directory
-8. Then run this command `npm install --save`
-9. Go to folder where docker-compose.yml file are present
-10. Open terminal, then Run `docker-compose up -d`
-11. After installation is done, run `npm start` or `npm start:dev`
-
-### Set up the environment by Docker Image
-
-1. Install Docker in your system
-2. Clone the GitHub repository from the given github link
-3. Create a `.env` file in the project
-3. Add given `.env` values to the `.env` file to the project
-4. Open terminal inside the root directory
-5. Run this command `docker image build -t ss-bgt-img .` or `sudo docker image build -t ss-bgt-img .`
-6. After executing previous command, run this `docker-compose up -d`
-   
-This command will start the Docker container with the Nest.js application and DynamoDB service running inside. The application will be accessible on port 3333.
-
-# Test the application: 
-Open a web browser and access http://localhost:3333 to test your Nest.js application running within the Docker container. Make sure everything is working as expected.
-
-
-## Resources
-### .env
-~~~
-APP_PORT=3005
-
-#  aws configuration
-AWS_ACCESS_KEY_ID=abcd
-AWS_SECRET_ACCESS_KEY=abcd
-AWS_REGION=us-east-1
-AWS_IS_DB_LOCAL=true
-# server type
-SERVER_TYPE=test_
-# Tokens
-JWT_COOKIE_EXPIRES_IN=1
-ACCESS_TOKEN_VALIDITY=1d
-REFRESH_TOKEN_VALIDITY=2d
-JWT_SECRET=c2bffd90e623eb87809ee81c18fe361479ab92c264b23c75620538b2b0f724c2
-~~~
-
-## docket-compose.yml for DynamoDB Local
-```
-version: '3'
-services:
-  dynamodb:
-    image: amazon/dynamodb-local
-    ports:
-      - "8000:8000"
-    volumes:
-      - "./data:/data"
-
-```
-### To run:
-```
-docket-compose up -d
-```
 
 ## Getting Started
 Access project POST MAN file: `https://documenter.getpostman.com/view/22890389/2s93z5AQUH#intro`

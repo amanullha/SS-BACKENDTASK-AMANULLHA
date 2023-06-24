@@ -1,6 +1,6 @@
 import { IMedia, IMediaKey } from '@interfaces/media.interface';
 import { DB_tables } from '@models/dbTable.enum';
-import { Global, HttpStatus, Injectable } from '@nestjs/common';
+
 import { InjectModel, Model } from 'nestjs-dynamoose';
 import { Genre } from '@models/genre.enum';
 import { MediaType } from '@models/mediaType.enum';
@@ -11,6 +11,7 @@ import { FilmmakersService } from '@modules/filmmakers/filmmakers.service';
 import { ExceptionHelper } from '@helpers/exception.helper';
 import { UpdateShowDto } from './dto/updateShowDto';
 import { CreateShowDto } from './dto/createShowDot';
+import { Injectable, HttpStatus } from '@nestjs/common';
 
 @Injectable()
 export class MediaService {

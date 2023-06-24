@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
+import { PassportModule } from '@nestjs/passport';
 import { DB_tables } from '@models/dbTable.enum';
 import { FilmmakersSchema } from '@schemas/filmmakers.schema';
 import { DynamooseModule } from 'nestjs-dynamoose';
 import { FilmmakersController } from './filmmakers.controller';
 import { FilmmakersService } from './filmmakers.service';
-import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
 import { UserSchema } from '@schemas/user.schema';
 import { UserService } from '@modules/user/user.service';
 import { JwtStrategy } from 'shared/decorators/jwt.strategy';
+import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [

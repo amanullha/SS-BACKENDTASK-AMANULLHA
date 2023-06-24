@@ -1,5 +1,4 @@
-import { PassportModule } from '@nestjs/passport';
-import { Module } from '@nestjs/common';
+
 import { MediaController } from './media.controller';
 import { MediaService } from './media.service';
 import { DB_tables } from '@models/dbTable.enum';
@@ -10,7 +9,10 @@ import { FilmmakersService } from '@modules/filmmakers/filmmakers.service';
 import { JwtStrategy } from 'shared/decorators/jwt.strategy';
 import { UserService } from '@modules/user/user.service';
 import { UserSchema } from '@schemas/user.schema';
+import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+
 
 @Module({
   imports: [

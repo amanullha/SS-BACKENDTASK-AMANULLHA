@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  Put,
-  UseGuards,
-} from '@nestjs/common';
+
 import { MediaService } from './media.service';
 import { CreateShowDto } from './dto/createShowDot';
 import { UpdateShowDto } from './dto/updateShowDto';
@@ -14,6 +6,7 @@ import { RoleGuard } from 'shared/guards/roles.guard';
 import { Roles } from 'shared/decorators/roles.decorators';
 import { UserType } from '@models/userType.enum';
 import { IMedia } from '@interfaces/media.interface';
+import { Controller, Post, UseGuards, Body, Put, Param, Get } from '@nestjs/common';
 
 @Controller('media')
 export class MediaController {

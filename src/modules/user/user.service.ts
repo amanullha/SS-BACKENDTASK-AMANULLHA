@@ -1,4 +1,5 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+
 import { CreateUserDto } from './dto/createUserDto';
 import { InjectModel, Model } from 'nestjs-dynamoose';
 import { IUser, IUserKey, JwtTokens } from '@interfaces/user.interface';
@@ -8,11 +9,12 @@ import { Status } from '@models/status.enum';
 import { ExceptionHelper } from '@helpers/exception.helper';
 import { AuthHelper } from '@helpers/auth.helper';
 import * as dotenv from 'dotenv';
-import { JwtService } from '@nestjs/jwt';
+
 import { LoginRequestType, UserLoginDto } from './dto/userLoginDto';
 import { DB_tables } from '@models/dbTable.enum';
 import { Request, Response } from 'express';
 import { ONE_DAY_IN_MILL_SECONDS } from '@helpers/globalConstants';
+import { HttpStatus, Injectable } from '@nestjs/common';
 dotenv.config();
 @Injectable()
 export class UserService {
@@ -42,7 +44,12 @@ export class UserService {
     let createdUser: IUser = await this.userModel.create(createUserObj);
 
     const user = await this.constructReturnUserObj(createdUser);
-    await AuthHelper.getInstance().generateTokens(req,res,createdUser, this.jwtService);
+    await AuthHelper.getInstance().generateTokens(
+      req,
+      res,
+      createdUser,
+      this.jwtService,
+    );
     return user;
   }
   async getUserByEmail(email: string): Promise<IUser> {
@@ -79,9 +86,7 @@ export class UserService {
     return obj;
   }
 
-  async constructReturnUserObj(
-    createdUser: IUser,
-  ): Promise< Partial<IUser>> {
+  async constructReturnUserObj(createdUser: IUser): Promise<Partial<IUser>> {
     const userObj = {
       id: createdUser?.id,
       name: createdUser?.name,

@@ -1,14 +1,5 @@
 import { UserType } from '@models/userType.enum';
-import {
-  Body,
-  Controller,
-  Post,
-  Get,
-  Param,
-  UseGuards,
-  Req,
-  Res,
-} from '@nestjs/common';
+
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/createUserDto';
 import { UserLoginDto } from './dto/userLoginDto';
@@ -16,7 +7,8 @@ import { Roles } from 'shared/decorators/roles.decorators';
 import { RoleGuard } from 'shared/guards/roles.guard';
 import { IUser, JwtTokens } from '@interfaces/user.interface';
 import { Request, Response } from 'express';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Post, Req, Res, Body, UseGuards, Get, Param } from '@nestjs/common';
+
 
 @Controller('user')
 export class UserController {

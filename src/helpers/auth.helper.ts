@@ -1,6 +1,5 @@
 import { IUser, IUserKey, JwtTokens } from '@interfaces/user.interface';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
 import {
   ONE_DAY_IN_MILL_SECONDS,
   TEN_MINS_IN_MILL_SECONDS,
@@ -10,6 +9,7 @@ import { LoginRequestType, UserLoginDto } from '@modules/user/dto/userLoginDto';
 import { Model } from 'nestjs-dynamoose';
 import { GlobalHelper } from './global.helper';
 import { Request, Response } from 'express';
+import * as bcrypt from 'bcryptjs';
 dotenv.config();
 
 export class AuthHelper {

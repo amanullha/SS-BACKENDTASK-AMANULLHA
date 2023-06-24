@@ -32,23 +32,22 @@ Open a web browser and access http://localhost:3000 to test your Nest.js applica
 
 ## Resources
 ### .env
-`
+```
   APP_PORT=3005
 
-  #  aws configuration
   AWS_ACCESS_KEY_ID=abcd
   AWS_SECRET_ACCESS_KEY=abcd
   AWS_REGION=us-east-1
   AWS_IS_DB_LOCAL=true
-  # server type
-  SERVER_TYPE=test_
-  # Tokens
-    JWT_COOKIE_EXPIRES_IN=1
-    ACCESS_TOKEN_VALIDITY=1d
-    REFRESH_TOKEN_VALIDITY=2d
-    JWT_SECRET=c2bffd90e623eb87809ee81c18fe361479ab92c264b23c75620538b2b0f724c2
 
-`
+  SERVER_TYPE=test_
+
+  JWT_COOKIE_EXPIRES_IN=1
+  ACCESS_TOKEN_VALIDITY=1d
+  REFRESH_TOKEN_VALIDITY=2d
+  JWT_SECRET=c2bffd90e623eb87809ee81c18fe361479ab92c264b23c75620538b2b0f724c2
+
+```
 
 ## Getting Started
 Access project POST MAN file: `https://documenter.getpostman.com/view/22890389/2s93z5AQUH#intro`
